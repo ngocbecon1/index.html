@@ -1,4 +1,203 @@
 <!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Ngọc Becon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+html,body{width:100%;height:100%;overflow:hidden}
+
+/* 🌐 BACKGROUND PC */
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+background:
+linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.6)),
+url("bg-pc.jpg") center/cover no-repeat fixed;
+color:#fff;
+}
+
+/* 📱 BACKGROUND PE */
+@media (max-width:768px){
+body{
+background:
+linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.55)),
+url("bg-mobile.jpg") center/cover no-repeat fixed;
+}
+}
+
+/* 🌌 FX */
+canvas{position:fixed;inset:0;z-index:-3}
+
+/* 🎥 INTRO */
+#intro{
+position:fixed;inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:10;
+}
+
+#brand{display:flex;gap:4px;margin-bottom:16px}
+#brand span{
+font-size:36px;
+font-weight:800;
+color:#ff77c8;
+text-shadow:0 0 30px #ff2f92;
+animation:wave 1.6s infinite ease-in-out;
+}
+#brand span:nth-child(n){animation-delay:calc(var(--i)*0.1s)}
+
+@keyframes wave{
+0%,100%{transform:translateY(0);opacity:.6}
+50%{transform:translateY(-10px);opacity:1}
+}
+
+#percent{font-size:38px;font-weight:700;color:#ff9bd6}
+
+#bar{
+margin-top:14px;
+width:180px;height:6px;
+background:rgba(255,255,255,.2);
+border-radius:99px;
+overflow:hidden;
+}
+#bar span{
+display:block;height:100%;width:0%;
+background:linear-gradient(90deg,#ff2f92,#ff9bd6);
+}
+
+/* 👉 TEXT TAP */
+#tapText{
+display:none;
+position:fixed;
+bottom:28%;
+font-size:16px;
+font-weight:600;
+opacity:.85;
+animation:tap 1.2s infinite;
+text-shadow:0 0 12px #ff2f92;
+z-index:9;
+}
+
+@keyframes tap{
+0%{transform:translateY(0);opacity:.4}
+50%{transform:translateY(-6px);opacity:1}
+100%{transform:translateY(0);opacity:.4}
+}
+
+/* 🫧 BUBBLE */
+.bubble{
+display:none;
+position:fixed;
+bottom:18%;
+left:50%;
+transform:translateX(-50%);
+width:90px;height:90px;
+border-radius:50%;
+background:radial-gradient(circle at top left,#fff,#ff77ff,#ff2f92);
+box-shadow:0 0 25px rgba(255,0,150,.9), inset 0 0 18px rgba(255,255,255,.6);
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+z-index:9;
+animation:float 2s ease-in-out infinite;
+}
+.bubble span{
+font-size:15px;
+font-weight:700;
+text-shadow:0 0 8px rgba(0,0,0,.4);
+}
+
+@keyframes float{
+0%{transform:translate(-50%,0) scale(1)}
+50%{transform:translate(-50%,-10px) scale(1.05)}
+100%{transform:translate(-50%,0) scale(1)}
+}
+
+/* ripple */
+.bubble::after{
+content:"";
+position:absolute;
+width:100%;height:100%;
+border-radius:50%;
+background:rgba(255,255,255,.5);
+opacity:0;
+transform:scale(.6);
+}
+.bubble:active::after{
+animation:ripple .4s ease-out;
+}
+@keyframes ripple{
+0%{opacity:.6;transform:scale(.6)}
+100%{opacity:0;transform:scale(1.4)}
+}
+
+/* 💎 CARD */
+.card{
+display:none;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(30px);
+padding:34px 26px 30px;
+border-radius:34px;
+text-align:center;
+max-width:320px;
+width:90%;
+z-index:5;
+position:relative;
+animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+/* ✨ NEON BORDER */
+.card::before{
+content:"";
+position:absolute;
+inset:-2px;
+border-radius:36px;
+background:linear-gradient(90deg,#ff2f92,#4fdcff,#ff77ff,#ff2f92);
+background-size:300% 300%;
+animation:neon 5s linear infinite;
+filter:blur(6px);
+z-index:-1;
+}
+@keyframes neon{
+0%{background-position:0%}
+100%{background-position:300%}
+}
+
+/* AVATAR */
+.avatar-wrap{
+width:140px;height:140px;
+margin:0 auto 12px;
+border-radius:50%;
+padding:5px;
+background:linear-gradient(135deg,#ff2f92,#4fdcff,#ff77ff);
+box-shadow:0 0 35px rgba(255,0,150,.9);
+}
+.avatar{width:100%;height:100%;border-radius:50%;object-fit:cover}
+
+/* NAME */
+.name{
+font-size:19px;font-weight:700;margin-bottom:18px;
+display:flex;justify-content:center;align-items:center;gap:6px;
+}
+.check{
+width:18px;height:18px;border-radius:50%;
+background:#1da1f2;
+display:flex;justify-content:center;align-items:center;
+font-size:12px;font-weight:900;
+box-shadow:0 0 12px #1da1f2;
+}
 
 /* LINKS */
 .link{
@@ -41,9 +240,9 @@ transform:translateY(-2px);
     <img src="avatar.jpg" class="avatar">
   </div>
   <div class="name">Ngọc Becon <span class="check">✓</span></div>
-  <a class="link" href="https://www.tiktok.com/@ngocbecon" target="_blank"> TikTok</a>
-  <a class="link" href="https://www.facebook.com/share/18TVL9TCDZ/" target="_blank"> Facebook</a>
-  <a class="link" href="https://discord.gg/dv2QAwssr" target="_blank"> Discord Group</a>
+  <a class="link" href="https://www.tiktok.com/@ngocbecon" target="_blank">🎵 TikTok</a>
+  <a class="link" href="https://www.facebook.com/share/18TVL9TCDZ/" target="_blank">📘 Facebook</a>
+  <a class="link" href="https://discord.gg/dv2QAwssr" target="_blank">💬 Discord Group</a>
 </div>
 
 <audio id="bgm" src="music.mp3" loop></audio>
@@ -110,4 +309,4 @@ draw();
 </script>
 
 </body>
-</html> 
+</html>
